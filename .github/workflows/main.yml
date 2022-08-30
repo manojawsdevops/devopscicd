@@ -30,5 +30,4 @@ jobs:
              cd /usr/local/bin/ 
              ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
              ./oc project cp4i 
-             ./oc apply -f  /root/Rest_Api_Application_Put_Get/cp4i.yaml
-             ./oc apply -f  /root/Rest_Api_Application_Put_Get/cp4i1.yaml
+             ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml
