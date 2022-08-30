@@ -1,0 +1,31 @@
+name: CI
+
+
+on:
+  
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+ 
+  build:
+   
+    runs-on: self-hosted
+
+   
+    steps:
+     
+      - uses: actions/checkout@v3
+  BarFile_Deploy_in_Openshift:
+    - name: Login Openshift
+      env:
+        OC_USERNAME: ${{secrets.OC_USERNAME}}
+        OC_PASSWORD: ${{secrets.OC_PASSWORD}}
+      run:
+	    /usr/local/bin/ && ./oc login -u $OC_USERNAME -p $OC_PASSWORD --insecure-skip-tls-verify=true
+        /usr/local/bin/ && ./oc project cp4i
+        	  
+      
+          
