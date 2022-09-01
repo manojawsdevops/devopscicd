@@ -1,4 +1,4 @@
-name: EDB_CICD
+name: RakBank_CICD
 
 on:
   push:
