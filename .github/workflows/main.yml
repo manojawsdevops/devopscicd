@@ -30,27 +30,23 @@ jobs:
              cd /usr/local/bin/ 
              ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
              ./oc project cp4i 
-		deploy-dev:
-    runs-on: 'ubuntu-latest'
-    environment: 'dev'
-    needs: build-and-publish
-    steps:	 
-             
-		deploy-prod:
-    runs-on: 'ubuntu-latest'
-    environment: 'DEV'
-    needs: [deploy-dev]
-    steps:	 
-             ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml
-		deploy-UAT:
-    runs-on: 'ubuntu-latest'
-    environment: 'UAT'
-    needs: [build-and-publish, deploy-UAT]
-    steps:	 
-             ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml
-		deploy-prod:
-    runs-on: 'ubuntu-latest'
-    environment: 'prod'
-    needs: [build-and-publish, deploy-UAT]
-    steps:	 
-           ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml
+	deploy-dev:
+      runs-on: 'ubuntu-latest'
+      environment: 'dev'
+      needs: build-and-publish
+      steps:
+	 ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml
+
+   deploy-prod:
+     runs-on: 'ubuntu-latest'
+     environment: 'prod'
+     needs: [build-and-publish, deploy-dev]
+     steps:		 
+       ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml
+	   
+    deploy-prod:
+     runs-on: 'ubuntu-latest'
+     environment: 'prod'
+     needs: [build-and-publish, deploy-uat]
+     steps:		 	   
+       ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
