@@ -25,27 +25,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
         
-      - name: oc login & deployment 
+      - name: oc login & deployment in ACE
         run: |
              cd /usr/local/bin/ 
              ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
-             ./oc project cp4i
-			 
-      -	name: deploying in ACE 
-	    deploy-dev:
-        environment: 'dev'
-        needs: build-and-publish
-        steps:
-	    ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml
-
-       deploy-prod:
-       environment: 'prod'
-       needs: [build-and-publish, deploy-dev]
-       steps:		 
-        ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml
-	   
-      deploy-prod:
-      environment: 'prod'
-      needs: [build-and-publish, deploy-uat]
-      steps:		 	   
-       ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
+             ./oc project cp4i 
+             ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
+             ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml 
+             ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
