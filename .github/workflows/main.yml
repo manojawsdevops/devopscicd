@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: oc login & deployment in ACE1
-        run: cd /usr/local/bin/ && ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD &&  ./oc project cp4i  
+        run: cd /usr/local/bin/ && ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD &&  ./oc project cp4i && pwd
          
   DeployDev:
     name: Deploy to Dev
