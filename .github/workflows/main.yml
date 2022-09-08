@@ -31,11 +31,15 @@ jobs:
              ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
              ./oc project cp4i 
              ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml
-	  - name: deployment in uat env	
+	     
+      - name: deployment in uat env	
 	    environment: uat
 		needs: [build-and-publish, deploy-dev,]
+	run: 	
              ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml 
-	  - name: deployment in prod env	
+	     
+       - name: deployment in prod env	
 	    environment: prod
-		needs: [build-and-publish, deploy-uat,]	 
+		needs: [build-and-publish, deploy-uat,]
+	run:	
              ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
