@@ -31,7 +31,7 @@ jobs:
       name: Dev
     steps:
       - name: Deploy in dev
-        run: cd /usr/local/bin/ && ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
+        run: ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
     
   DeployStaging:
     name: Deploy to uat 
