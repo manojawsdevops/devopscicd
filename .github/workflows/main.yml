@@ -13,33 +13,45 @@ env:
  oc_PASSWORD: ${{secrets.oc_PASSWORD}}
  oc_login: ${{secrets.oc_login}}
 
+ - name: oc login & deployment in ACE1
+   run: |
+        cd /usr/local/bin/ 
+        ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
+        ./oc project cp4i 
 jobs:
   build-and-publish:
     runs-on: self-hosted
     steps:
-
-  deploy-dev:
-    runs-on: 'ubuntu-latest'
-    environment: 'development'
-    needs: build-and-publish
+      deploy-dev:
+        runs-on: 'ubuntu-latest'
+        environment: 'development'
+        needs: build-and-publish
     steps:
       run: 
-	   ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
-  	   
-  deploy-uat:
-    runs-on: 'ubuntu-latest'
-    environment: 'prod'
-    needs: [build-and-publish, deploy-dev]
+	    ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
+	   
+jobs:
+  build-and-publish:
+    runs-on: self-hosted
+    steps:
+	  deploy-uat:
+        runs-on: 'ubuntu-latest'
+        environment: 'uat'
+        needs: [build-and-publish, deploy-dev]
     steps:
      run:
 	   ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml 
-   	  
-  deploy-prod:
-    runs-on: 'ubuntu-latest'
-    environment: 'prod'
-    needs: [build-and-publish, deploy-dev, deploy-prod ]
+
+jobs:
+  build-and-publish:
+    runs-on: self-hosted
     steps:
-	  run:
+	  deploy-prod:
+        runs-on: 'ubuntu-latest'
+        environment: 'prod'
+        needs: [build-and-publish, deploy-dev, deploy-prod ]
+    steps:
+	   run:
 	    ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
 
       
