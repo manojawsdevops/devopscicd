@@ -13,7 +13,7 @@ env:
  oc_PASSWORD: ${{secrets.oc_PASSWORD}}
  oc_login: ${{secrets.oc_login}}
 
- - name: oc login & deployment in ACE1
+  - name: oc login & deployment in ACE1
    run: |
         cd /usr/local/bin/ 
         ./oc login $OC_SERVER -u $oc_USERNAME -p $oc_PASSWORD
@@ -28,7 +28,7 @@ jobs:
         needs: build-and-publish
     steps:
       run: 
-	    ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
+      ./oc apply -f  /home/bandaru/Videos/manoj/devops-dev.yaml 
 	   
 jobs:
   build-and-publish:
@@ -40,7 +40,7 @@ jobs:
         needs: [build-and-publish, deploy-dev]
     steps:
      run:
-	   ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml 
+     ./oc apply -f  /home/bandaru/Videos/manoj/devops-uat.yaml 
 
 jobs:
   build-and-publish:
@@ -52,6 +52,6 @@ jobs:
         needs: [build-and-publish, deploy-dev, deploy-prod ]
     steps:
 	   run:
-	    ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
+	   ./oc apply -f  /home/bandaru/Videos/manoj/devops-prod.yaml 
 
       
